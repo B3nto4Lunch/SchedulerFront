@@ -499,12 +499,11 @@ button {
   // Liavs api calling:
 
 function App () {
-  const [Wapi, setWapi]
-  
+
   useEffect(() => {
-    const fetchData = asynch () => {
-      const result = await fetch('http://127.0.0.1:5000/Wapi/')
-      const jsonResult = await result.json();
+    const fetchData = asynch (); {
+      const result = fetch('http://127.0.0.1:5000/Wapi/')
+      const jsonResult = result.json();
 
       setWapi(jsonResult)
     }
@@ -512,7 +511,7 @@ function App () {
     fetchData();
   }, [])
 
-  const submitWapi = asynch () => {
+  const submitWapi = asynch (); {
     const myData = {
       apiKey: "b95c3461498620c129a3d6a6b675c29b",
       fetchWeather: function (city) {
@@ -538,5 +537,6 @@ function App () {
       search: function () {
         this.fetchWeather(document.querySelector(".searchbar").value);
       }
-
-    
+    }
+  }
+}
