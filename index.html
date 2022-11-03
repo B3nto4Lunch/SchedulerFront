@@ -1,7 +1,3 @@
-{% extends "layouts/base.html" %}
-{% set project = "Calendar" %}
-
-{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -552,6 +548,20 @@ button {
     },
   };
 
+  const apiurl = "https://sane.nighthawkcodingteams.cf/api/weather/"
+        window.onload = APIsync()
+
+        function APIsync(){
+            fetch(apiurl)
+            .then(response => {
+                response.json().then(data => {
+                    console.log(data)
+                    console.log(data.results)
+                    Weatherapi(data)
+            })
+        })
+        }
+        
   renderCalendar();
 
 
@@ -559,5 +569,5 @@ button {
 
 </body>
 </html>
-{% endblock %}
+
 
