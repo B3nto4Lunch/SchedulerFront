@@ -553,7 +553,19 @@ button {
     },
   };
 
-  
+  const apiurl = "https://sane.nighthawkcodingteams.cf/api/weather/"
+        window.onload = APIsync()
+
+        function APIsync(){
+            fetch(apiurl)
+            .then(response => {
+                response.json().then(data => {
+                    console.log(data)
+                    console.log(data.results)
+                    Weatherapi(data)
+            })
+        })
+        }
 
   // const searchbutton = document.querySelector('');
    // searchbutton.addEventListener('click', )
