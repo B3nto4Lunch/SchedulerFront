@@ -69,36 +69,81 @@
     <div id="weatherContainer">
       <div class="search">
           <input type="text" class="searchbar" placeholder="Enter city name..." />
-          <button onclick=""><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button onclick="weather.search()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       <div id="weatherHeader">
         <div id="tempHeader">
-          <h1 class="city">San Diego</h1>
+          <h1 class="city">Input a City</h1>
+          <img src="" class="icon" />
 
-          <h2 class="currenttemp">72<span>&#176;f</span></h2>
-          <div class="weather">Sunny</div>
-          <div class="H">H: 75<span>&#176;f</span></div>
-          <div class="L">L: 65<span>&#176;f</span></div>
+          <div class="weather">Weather</div>
+          <h2 class="currenttemp">Current Temperature<span>&#176;f</span></h2>
+          
+          <div class="H">H: High<span>&#176;F</span></div>
+          <div class="L">L: Low<span>&#176;F</span></div>
 
         </div>
 
       </div>
 
-      <div id="weekWeather"></div>
-
     </div>
 
     <!-- weather thing -->
 
+    <div id="eventcontainer">
+      <div id="eventtitle">
+        <h1>Scheduled Events</h1>
+      </div>
+      
+      <div id="scheduledevents">
+
+      </div>
+    </div>
+
   </body>
 
 <style>
+/* saved events */
+
+#eventcontainer {
+  width: 450px;
+  height: 728px;
+  background: #222;
+  float: right;
+  right: 120px;
+  position: relative;
+  bottom: 685px;
+  font-family: 'montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: white;
+}
+
+#eventtitle {
+  background-color: #167b7e;
+  padding: 5px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#scheduledevents {
+  padding: 10px;
+  font-size: 25px;
+}
+
+/* saved events */
 
 /*WEATHER THING  */
 .H, .L {
   font-weight: 500;
   font-style: italic;
   padding: 5px;
+}
+.icon {
+  display: flex;
 }
 .weather {
   font-size: 25px;
@@ -149,18 +194,18 @@ i {
 #weatherHeader {
   width: 100%;
   width: 450px;
-  height: 400px;
+  height: 450px;
   background-color: #002d44;
   display: flex;
   align-items: center;
 }
-.city, .currenttemp, .weather, .H, .L {
+.city, .currenttemp, .weather, .H, .L, .icon {
   text-shadow:#38878a, 5px;
   opacity: 100%;
   display: flex;
   align-items: center;
   color: antiquewhite;
-  transform: translateX(75%);
+  /* transform: translateX(25%); */
   justify-content: center;
   text-align: center;
 }
@@ -174,11 +219,7 @@ i {
 
 /* WEATHER THING */
 
-/* saved events */
 
-
-
-/* saved events */
 
 
 
@@ -325,9 +366,28 @@ button {
   border-color: white;
   color: white;
 }
-#eventText {
-  font-size: 14px;
+
+#eventcontainer {
+  width: 450px;
+  height: 728px;
+  background: #222;
+  float: right;
+  right: 120px;
+  position: relative;
+  bottom: 685px;
+  font-family: 'montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: white;
 }
+
+#eventtitle {
+  background: #5bb375;
+  padding: 5px;
+  height: 60px;
+}
+
 #PopupBackDrop {
   display: none;
   top: 0px;
@@ -342,27 +402,41 @@ button {
 </style>
     
 <script>
+  // steven
+  
     var savedEvents = {
       
     }
 
-  function updateCal() {
-    console.log("retrieving clicked date");
-    console.log(clicked);
-    // savedEvents[clicked + ' events'] = Array();
-    savedEvents[clicked + ' ' + document.getElementById("calendarHeader").innerText + ' events'].push(document.getElementById('eventTitleInput').value);
-    document.getElementById('eventTitleInput').value = ''
-    closePopup();
-    console.log(savedEvents)
-  }
+    function updateCal() {
+      console.log("retrieving clicked date");
+      console.log(clicked);
+      // savedEvents[clicked + ' events'] = Array();
+      savedEvents[clicked + ' ' + document.getElementById("calendarHeader").innerText + ' events'].push(document.getElementById('eventTitleInput').value);
+      document.getElementById('eventTitleInput').value = ''
+      closePopup();
+      console.log(savedEvents)
+      notemptylists = new Array();
+      for (const [k, v] of Object.entries(savedEvents)) {
+        if (!Array.isArray(v) || v.length) {
+          notemptylists.push(k + ": " + v);
+        }
+      }
+      document.getElementById("scheduledevents").innerText = notemptylists.join("\n");
+    }
+  
+  // steven
 
-  //popup
-  const newEventPopup = document.getElementById('newEventPopup');
-  const deleteEventPopup = document.getElementById('deleteEventPopup');
-  const backDrop = document.getElementById('PopupBackDrop');
-  const eventTitleInput = document.getElementById('eventTitleInput');
+  //noor
+  //just defining some variables 
+    const newEventPopup = document.getElementById('newEventPopup');
+    const deleteEventPopup = document.getElementById('deleteEventPopup');
+    const backDrop = document.getElementById('PopupBackDrop');
+    const eventTitleInput = document.getElementById('eventTitleInput');
 
-  function openPopup(date) {
+  //open and close popup: when you click on a specific date, it opens the hidden element eventpopup. 
+  //when you click cancel, it closes the popup
+    function openPopup(date) {
     clicked = date;
     const eventForDay = events.find(e => e.date === clicked);
 
@@ -389,36 +463,17 @@ button {
   const calendar = document.getElementById('calendar');
   
 
-  const month = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
 //code for calendar render, prev/next days, and more date stuff using javascripts built-in date api
   function renderCalendar() {
     
     const date = new Date();
-    
-    // if (monthNav !== 0) {
-    //   date.setMonth(new Date().getMonth() + monthNav);
-    // }
 
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1);
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   
     const dateString = firstDayOfMonth.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -426,30 +481,31 @@ button {
       month: 'numeric',
       day: 'numeric', 
 
-    });
+    }); //a line of the date elements
 
 
     
   document.getElementById('calendarHeader').innerText = 
-    `${date.toLocaleDateString('en-us', { month: 'long' })} ${year}`; 
+    `${date.toLocaleDateString('en-us', { month: 'long' })} ${year}`; //setting the inner text of an element to the local date string
 
   
   calendar.innerHTML = '';
-    
-  const prevDays = weekdays.indexOf(dateString.split(', ')[0]);
+  
+  const prevDays = weekdays.indexOf(dateString.split(', ')[0]); //splitting the date string to find the prev days
 
-   
-
-    for(let i = 0; i <= prevDays + daysInMonth; i++) {
+  //set i =1 and then we will keep looping the function because we have to render the empty square for the prev days
+  //as i increments, it will create a daysquare div which has a class of day
+    for(let i = 1; i <= prevDays + daysInMonth; i++) {
       const daySquare = document.createElement('div');
       daySquare.classList.add('day');
 
-      //rendering previous day or actual daysquare?
+      //rendering previous day or actual daysquare? checking if we have iterated more times than there are prev days
+      //we are then adding the 'padding element' to the prevdays if the amount of iterations is less than or equal to the prev days
+      //if greater, we are setting the inner text of the daysquare to i - the amount of prev days to get the actual day
         if (i > prevDays) {
           daySquare.innerText = i - prevDays;
-          savedEvents[daySquare.innerHTML + ' ' + document.getElementById("calendarHeader").innerText + ' events'] = Array();
           daySquare.addEventListener('click', () => openPopup(daySquare.innerHTML));
-
+          savedEvents[daySquare.innerHTML + ' ' + document.getElementById("calendarHeader").innerText + ' events'] = Array();
         } 
         else {
           daySquare.classList.add('padding');
@@ -459,81 +515,44 @@ button {
   
   } 
 
-
-  // document.getElementById("h1").innerHTML = months[date.getMonth()];
-
-  // document.getElementById("p").innerHTML = new Date().toDateString();
-
-  function buttons() {
-    document.getElementById('nextButton').addEventListener('click', () => {
- 
-      renderCalendar();
-    });
-
-    // document.getElementById('backButton').addEventListener('click', () => {
-    //   date.getMonth() - 1;
-    //   renderCalendar();
-    // })
+  function saveEvent(day, input) { //function that has the day and the userinput as the parameters
 
   }
-
-  
-  // function getclickeddate() {
-  //   console.log("retrieving clicked date");
-  //   console.log(date.getMonth());
-  //   // clickedday = date.getDate(daySquare);
-  //   // console.log(clickedday);
-  // }
-
-  function saveEvent(day, input) {
-
-  }
+//noor
 
   //weather stuff:
-
+  //alan or liav explain
   let weather = {
-    // put your api stuff here
+    apiKey: "b95c3461498620c129a3d6a6b675c29b",
+    fetchWeather: function (city) {
+      fetch(
+        "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=b95c3461498620c129a3d6a6b675c29b"
+      )
+        .then((res) => res.json())
+        .then((data) => this.displayWeather(data));
+    },
+    //alan or liav
+
+    //noor
+    displayWeather: function(data) {
+      const { name } = data;
+      const { icon, description } = data.weather[0];
+      const { temp } = data.main;
+      const { temp_max, temp_min } = data.main
+      console.log(name,icon,description,temp,temp_max,temp_min)
+      document.querySelector(".city").innerText = "Weather in " + name;
+      document.querySelector(".icon").src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
+      document.querySelector(".weather").innerText = "Weather description:" + " " + description;
+      document.querySelector(".currenttemp").innerText = temp + "℉"
+      document.querySelector(".H").innerText = "High: " + temp_max + "℉"
+      document.querySelector(".L").innerText = "Low: " + temp_min + "℉"
+    },
+    search: function () {
+      this.fetchWeather(document.querySelector(".searchbar").value);
+    },
   };
 
-  // const searchbutton = document.querySelector('');
-   // searchbutton.addEventListener('click', )
-
-  //weather stuff:
-
-
   renderCalendar();
-//  var dict = [];
-
-// dict1["Event"]=prompt("What event do you want to schedule? ");
-// dict2["Date"]=input
-
-
-//   Name = "Event"
-//   Date = "Etc"
-
-// dict[key] = value
-// dict.key = new_value; 
-// var value = dict.key;
-// delete dict.key;
-
-// let saveButton = [];
-//     const addEvent = (ev)=>{
-//       ev.preventDefault();
-//       let Event = {
-//         // date: 
-//         // title:
-//        }
-//     }
-
-
-  // let saveButton = [];
-  //   const addEvent = (ev)=>{
-  //     ev.preventDefault();
-  //     let Event = {
-  //       date: 
-  //       title:
-  //      }
-  //   } 
 
 
 </script>
