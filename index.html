@@ -427,7 +427,7 @@ button {
     const year = date.getFullYear();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1);
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   
     const dateString = firstDayOfMonth.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -444,12 +444,10 @@ button {
 
   
   calendar.innerHTML = '';
-    
+  
   const prevDays = weekdays.indexOf(dateString.split(', ')[0]);
 
-   
-
-    for(let i = 0; i <= prevDays + daysInMonth; i++) {
+    for(let i = 1; i <= prevDays + daysInMonth; i++) {
       const daySquare = document.createElement('div');
       daySquare.classList.add('day');
 
@@ -498,56 +496,19 @@ button {
 
   }
 
-  //weather stuff:
+  // Liavs api calling:
 
-  let weather = {
-    // put your api stuff here
-  };
+function App () {
+  const [Wapi, setWapi]
+  
+  useEffect(() => {
+    const fetchData = asynch () => {
+      const result = await fetch('http://127.0.0.1:5000/Wapi/')
+      const jsonResult = await result.json();
 
-  // const searchbutton = document.querySelector('');
-   // searchbutton.addEventListener('click', )
+      setWapi(jsonResult)
+    }
 
-  //weather stuff:
-
-
-  renderCalendar();
-//  var dict = [];
-
-// dict1["Event"]=prompt("What event do you want to schedule? ");
-// dict2["Date"]=input
-
-
-//   Name = "Event"
-//   Date = "Etc"
-
-// dict[key] = value
-// dict.key = new_value; 
-// var value = dict.key;
-// delete dict.key;
-
-// let saveButton = [];
-//     const addEvent = (ev)=>{
-//       ev.preventDefault();
-//       let Event = {
-//         // date: 
-//         // title:
-//        }
-//     }
-
-
-  // let saveButton = [];
-  //   const addEvent = (ev)=>{
-  //     ev.preventDefault();
-  //     let Event = {
-  //       date: 
-  //       title:
-  //      }
-  //   } 
-
-
-</script>
-
-</body>
-</html>
-{% endblock %}
+    fetchData();
+  }, [])
 
