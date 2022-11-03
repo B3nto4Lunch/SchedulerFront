@@ -69,26 +69,32 @@
     <div id="weatherContainer">
       <div class="search">
           <input type="text" class="searchbar" placeholder="Enter city name..." />
-          <button onclick=""><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button onclick="weather.search()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       <div id="weatherHeader">
         <div id="tempHeader">
-          <h1 class="city">San Diego</h1>
+          <h1 class="city">Input a City</h1>
+          <img src="" class="icon" />
 
-          <h2 class="currenttemp">72<span>&#176;f</span></h2>
-          <div class="weather">Sunny</div>
-          <div class="H">H: 75<span>&#176;f</span></div>
-          <div class="L">L: 65<span>&#176;f</span></div>
+          <div class="weather">Weather</div>
+          <h2 class="currenttemp">Current Temperature<span>&#176;f</span></h2>
+          
+          <div class="H">H: High<span>&#176;F</span></div>
+          <div class="L">L: Low<span>&#176;F</span></div>
 
         </div>
 
       </div>
 
-      <div id="weekWeather"></div>
-
     </div>
 
     <!-- weather thing -->
+
+    <div class="eventcontainer">
+      <div class="events">
+        
+      </div>
+    </div>
 
   </body>
 
@@ -99,6 +105,9 @@
   font-weight: 500;
   font-style: italic;
   padding: 5px;
+}
+.icon {
+  display: flex;
 }
 .weather {
   font-size: 25px;
@@ -149,18 +158,18 @@ i {
 #weatherHeader {
   width: 100%;
   width: 450px;
-  height: 400px;
+  height: 450px;
   background-color: #002d44;
   display: flex;
   align-items: center;
 }
-.city, .currenttemp, .weather, .H, .L {
+.city, .currenttemp, .weather, .H, .L, .icon {
   text-shadow:#38878a, 5px;
   opacity: 100%;
   display: flex;
   align-items: center;
   color: antiquewhite;
-  transform: translateX(75%);
+  /* transform: translateX(25%); */
   justify-content: center;
   text-align: center;
 }
